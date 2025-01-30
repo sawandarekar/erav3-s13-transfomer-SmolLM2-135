@@ -1,0 +1,736 @@
+2025-01-30 17:59:45,478 - INFO - Using device: mps
+2025-01-30 18:04:03,917 - INFO - Using device: mps
+2025-01-30 18:05:17,959 - INFO - Using device: mps
+2025-01-30 18:05:21,993 - INFO - Total parameters: 162,826,560
+2025-01-30 18:05:21,993 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:10:24,401 - INFO - Using device: mps
+2025-01-30 18:10:29,228 - INFO - Total parameters: 162,826,560
+2025-01-30 18:10:29,228 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:11:05,043 - INFO - Using device: cpu
+2025-01-30 18:11:09,115 - INFO - Total parameters: 162,826,560
+2025-01-30 18:11:09,115 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:16:15,211 - INFO - Using device: cpu
+2025-01-30 18:16:18,364 - INFO - 
+Model Summary:
+2025-01-30 18:17:05,583 - INFO - Using device: cpu
+2025-01-30 18:17:10,808 - INFO - 
+Model Summary:
+2025-01-30 18:17:10,808 - INFO - 
+Model Architecture:
+2025-01-30 18:17:10,808 - INFO - Hidden Size: 576
+2025-01-30 18:17:10,808 - INFO - Num Layers: 30
+2025-01-30 18:17:10,808 - INFO - Num Attention Heads: 9
+2025-01-30 18:17:10,808 - INFO - Num KV Heads: 3
+2025-01-30 18:17:10,808 - INFO - Intermediate Size: 1536
+2025-01-30 18:17:10,808 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:17:10,809 - INFO - Total parameters: 162,826,560
+2025-01-30 18:17:10,809 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:19:20,033 - INFO - Using device: cpu
+2025-01-30 18:19:23,177 - INFO - 
+Model Summary:
+2025-01-30 18:19:23,177 - INFO - 
+Model Architecture:
+2025-01-30 18:19:23,178 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:19:23,178 - INFO - Hidden Size: 576
+2025-01-30 18:19:23,178 - INFO - Num Layers: 30
+2025-01-30 18:19:23,178 - INFO - Num Attention Heads: 9
+2025-01-30 18:19:23,178 - INFO - Num KV Heads: 3
+2025-01-30 18:19:23,178 - INFO - Intermediate Size: 1536
+2025-01-30 18:19:23,178 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:19:23,179 - INFO - Total parameters: 162,826,560
+2025-01-30 18:19:23,179 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:24:33,596 - INFO - Using device: cpu
+2025-01-30 18:24:36,822 - INFO - Model Architecture:
+2025-01-30 18:24:36,823 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:24:36,823 - INFO - Hidden Size: 576
+2025-01-30 18:24:36,823 - INFO - Num Layers: 30
+2025-01-30 18:24:36,823 - INFO - Num Attention Heads: 9
+2025-01-30 18:24:36,823 - INFO - Num KV Heads: 3
+2025-01-30 18:24:36,823 - INFO - Intermediate Size: 1536
+2025-01-30 18:24:36,823 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:24:36,824 - INFO - Total parameters: 162,826,560
+2025-01-30 18:24:36,824 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:26:18,471 - INFO - Using device: cpu
+2025-01-30 18:26:26,970 - INFO - Model Architecture:
+2025-01-30 18:26:26,971 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:26:26,971 - INFO - Hidden Size: 576
+2025-01-30 18:26:26,971 - INFO - Num Layers: 30
+2025-01-30 18:26:26,971 - INFO - Num Attention Heads: 9
+2025-01-30 18:26:26,971 - INFO - Num KV Heads: 3
+2025-01-30 18:26:26,971 - INFO - Intermediate Size: 1536
+2025-01-30 18:26:26,971 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:26:26,972 - INFO - Total parameters: 162,826,560
+2025-01-30 18:26:26,972 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:27:31,532 - INFO - Using device: cpu
+2025-01-30 18:27:34,718 - INFO - Model Architecture:
+2025-01-30 18:27:34,718 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:27:34,718 - INFO - Hidden Size: 576
+2025-01-30 18:27:34,718 - INFO - Num Layers: 30
+2025-01-30 18:27:34,718 - INFO - Num Attention Heads: 9
+2025-01-30 18:27:34,718 - INFO - Num KV Heads: 3
+2025-01-30 18:27:34,718 - INFO - Intermediate Size: 1536
+2025-01-30 18:27:34,718 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:27:34,719 - INFO - Total parameters: 162,826,560
+2025-01-30 18:27:34,719 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:28:25,523 - INFO - Using device: cpu
+2025-01-30 18:28:28,629 - INFO - Model Architecture:
+2025-01-30 18:28:28,630 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:28:28,630 - INFO - Hidden Size: 576
+2025-01-30 18:28:28,630 - INFO - Num Layers: 30
+2025-01-30 18:28:28,630 - INFO - Num Attention Heads: 9
+2025-01-30 18:28:28,630 - INFO - Num KV Heads: 3
+2025-01-30 18:28:28,630 - INFO - Intermediate Size: 1536
+2025-01-30 18:28:28,630 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:28:28,631 - INFO - Total parameters: 162,826,560
+2025-01-30 18:28:28,631 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:32:19,605 - INFO - Using device: cpu
+2025-01-30 18:32:22,811 - INFO - Model Architecture:
+2025-01-30 18:32:22,812 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:32:22,812 - INFO - Hidden Size: 576
+2025-01-30 18:32:22,812 - INFO - Num Layers: 30
+2025-01-30 18:32:22,812 - INFO - Num Attention Heads: 9
+2025-01-30 18:32:22,812 - INFO - Num KV Heads: 3
+2025-01-30 18:32:22,812 - INFO - Intermediate Size: 1536
+2025-01-30 18:32:22,812 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:32:22,813 - INFO - Total parameters: 162,826,560
+2025-01-30 18:32:22,813 - INFO - Trainable parameters: 162,826,560
+2025-01-30 18:36:24,209 - INFO - Using device: cpu
+2025-01-30 18:36:29,576 - INFO - Model Architecture:
+2025-01-30 18:36:29,577 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 18:36:29,577 - INFO - Hidden Size: 576
+2025-01-30 18:36:29,577 - INFO - Num Layers: 30
+2025-01-30 18:36:29,577 - INFO - Num Attention Heads: 9
+2025-01-30 18:36:29,577 - INFO - Num KV Heads: 3
+2025-01-30 18:36:29,577 - INFO - Intermediate Size: 1536
+2025-01-30 18:36:29,577 - INFO - Vocabulary Size: 49152
+
+2025-01-30 18:36:29,578 - INFO - Total parameters: 162,826,560
+2025-01-30 18:36:29,578 - INFO - Trainable parameters: 162,826,560
+2025-01-30 19:55:05,521 - INFO - Using device: cpu
+2025-01-30 19:55:08,799 - INFO - Model Architecture:
+2025-01-30 19:55:08,800 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 19:55:08,800 - INFO - Hidden Size: 576
+2025-01-30 19:55:08,800 - INFO - Num Layers: 30
+2025-01-30 19:55:08,800 - INFO - Num Attention Heads: 9
+2025-01-30 19:55:08,800 - INFO - Num KV Heads: 3
+2025-01-30 19:55:08,800 - INFO - Intermediate Size: 1536
+2025-01-30 19:55:08,800 - INFO - Vocabulary Size: 49152
+
+2025-01-30 19:55:08,801 - INFO - Total parameters: 162,826,560
+2025-01-30 19:55:08,801 - INFO - Trainable parameters: 162,826,560
+2025-01-30 19:55:37,485 - INFO - Using device: cpu
+2025-01-30 19:55:40,769 - INFO - Model Architecture:
+2025-01-30 19:55:40,769 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 19:55:40,769 - INFO - Hidden Size: 576
+2025-01-30 19:55:40,769 - INFO - Num Layers: 30
+2025-01-30 19:55:40,769 - INFO - Num Attention Heads: 9
+2025-01-30 19:55:40,769 - INFO - Num KV Heads: 3
+2025-01-30 19:55:40,769 - INFO - Intermediate Size: 1536
+2025-01-30 19:55:40,770 - INFO - Vocabulary Size: 49152
+
+2025-01-30 19:55:40,770 - INFO - Total parameters: 162,826,560
+2025-01-30 19:55:40,770 - INFO - Trainable parameters: 162,826,560
+2025-01-30 19:55:57,113 - INFO - Using device: cpu
+2025-01-30 19:56:00,348 - INFO - Model Architecture:
+2025-01-30 19:56:00,349 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 19:56:00,349 - INFO - Hidden Size: 576
+2025-01-30 19:56:00,349 - INFO - Num Layers: 30
+2025-01-30 19:56:00,349 - INFO - Num Attention Heads: 9
+2025-01-30 19:56:00,349 - INFO - Num KV Heads: 3
+2025-01-30 19:56:00,349 - INFO - Intermediate Size: 1536
+2025-01-30 19:56:00,349 - INFO - Vocabulary Size: 49152
+
+2025-01-30 19:56:00,350 - INFO - Total parameters: 162,826,560
+2025-01-30 19:56:00,350 - INFO - Trainable parameters: 162,826,560
+2025-01-30 19:57:50,483 - INFO - Using device: cpu
+2025-01-30 19:57:52,783 - INFO - Model Architecture:
+2025-01-30 19:57:52,783 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(44096, 384)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=384, out_features=384, bias=False)
+          (k_proj): Linear(in_features=384, out_features=128, bias=False)
+          (v_proj): Linear(in_features=384, out_features=128, bias=False)
+          (o_proj): Linear(in_features=384, out_features=384, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=384, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=384, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=384, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=384, out_features=44096, bias=False)
+)
+2025-01-30 19:57:52,783 - INFO - Hidden Size: 576
+2025-01-30 19:57:52,783 - INFO - Num Layers: 30
+2025-01-30 19:57:52,784 - INFO - Num Attention Heads: 9
+2025-01-30 19:57:52,784 - INFO - Num KV Heads: 3
+2025-01-30 19:57:52,784 - INFO - Intermediate Size: 1536
+2025-01-30 19:57:52,784 - INFO - Vocabulary Size: 49152
+
+2025-01-30 19:57:52,784 - INFO - Total parameters: 85,789,056
+2025-01-30 19:57:52,784 - INFO - Trainable parameters: 85,789,056
+2025-01-30 19:59:16,711 - INFO - Using device: cpu
+2025-01-30 19:59:20,470 - INFO - Model Architecture:
+2025-01-30 19:59:20,471 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=24, bias=False)
+          (v_proj): Linear(in_features=576, out_features=24, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 19:59:20,471 - INFO - Hidden Size: 576
+2025-01-30 19:59:20,471 - INFO - Num Layers: 30
+2025-01-30 19:59:20,471 - INFO - Num Attention Heads: 9
+2025-01-30 19:59:20,471 - INFO - Num KV Heads: 3
+2025-01-30 19:59:20,471 - INFO - Intermediate Size: 1536
+2025-01-30 19:59:20,471 - INFO - Vocabulary Size: 49152
+
+2025-01-30 19:59:20,472 - INFO - Total parameters: 157,020,480
+2025-01-30 19:59:20,472 - INFO - Trainable parameters: 157,020,480
+2025-01-30 20:02:54,259 - INFO - Using device: cpu
+2025-01-30 20:04:37,129 - INFO - Using device: cpu
+2025-01-30 20:05:02,898 - INFO - Using device: cpu
+2025-01-30 20:05:06,122 - INFO - Model Architecture:
+2025-01-30 20:05:06,122 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=24, bias=False)
+          (v_proj): Linear(in_features=576, out_features=24, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-30 20:05:06,122 - INFO - Hidden Size: 576
+2025-01-30 20:05:06,122 - INFO - Num Layers: 30
+2025-01-30 20:05:06,123 - INFO - Num Attention Heads: 69
+2025-01-30 20:05:06,123 - INFO - Num KV Heads: 3
+2025-01-30 20:05:06,123 - INFO - Intermediate Size: 1536
+2025-01-30 20:05:06,123 - INFO - Vocabulary Size: 49152
+
+2025-01-30 20:05:06,124 - INFO - Total parameters: 157,020,480
+2025-01-30 20:05:06,124 - INFO - Trainable parameters: 157,020,480
+2025-01-30 20:05:54,934 - INFO - Using device: cpu
+2025-01-30 20:06:00,201 - INFO - Model Architecture:
+2025-01-30 20:06:00,202 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 20:06:00,202 - INFO - Hidden Size: 552
+2025-01-30 20:06:00,202 - INFO - Num Layers: 30
+2025-01-30 20:06:00,202 - INFO - Num Attention Heads: 12
+2025-01-30 20:06:00,202 - INFO - Num KV Heads: 4
+2025-01-30 20:06:00,202 - INFO - Intermediate Size: 1536
+2025-01-30 20:06:00,202 - INFO - Vocabulary Size: 49152
+
+2025-01-30 20:06:00,203 - INFO - Total parameters: 154,982,280
+2025-01-30 20:06:00,203 - INFO - Trainable parameters: 154,982,280
+2025-01-30 20:09:36,341 - INFO - Using device: cpu
+2025-01-30 20:09:39,552 - INFO - Model Architecture:
+2025-01-30 20:09:39,553 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 20:09:39,553 - INFO - Hidden Size: 552
+2025-01-30 20:09:39,553 - INFO - Num Layers: 24
+2025-01-30 20:09:39,553 - INFO - Num Attention Heads: 12
+2025-01-30 20:09:39,553 - INFO - Num KV Heads: 4
+2025-01-30 20:09:39,553 - INFO - Intermediate Size: 1536
+2025-01-30 20:09:39,553 - INFO - Vocabulary Size: 49152
+
+2025-01-30 20:09:39,554 - INFO - Total parameters: 134,838,696
+2025-01-30 20:09:39,554 - INFO - Trainable parameters: 134,838,696
+2025-01-30 20:59:53,264 - INFO - Using device: cpu
+2025-01-30 20:59:56,154 - INFO - Model Architecture:
+2025-01-30 20:59:56,154 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 20:59:56,154 - INFO - Hidden Size: 552
+2025-01-30 20:59:56,155 - INFO - Num Layers: 24
+2025-01-30 20:59:56,155 - INFO - Num Attention Heads: 12
+2025-01-30 20:59:56,155 - INFO - Num KV Heads: 4
+2025-01-30 20:59:56,155 - INFO - Intermediate Size: 1536
+2025-01-30 20:59:56,155 - INFO - Vocabulary Size: 49152
+
+2025-01-30 20:59:56,155 - INFO - Total parameters: 134,838,696
+2025-01-30 20:59:56,155 - INFO - Trainable parameters: 134,838,696
+2025-01-30 21:05:20,523 - INFO - Using device: cpu
+2025-01-30 21:05:23,323 - INFO - Model Architecture:
+2025-01-30 21:05:23,323 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 21:05:23,323 - INFO - Hidden Size: 552
+2025-01-30 21:05:23,323 - INFO - Num Layers: 24
+2025-01-30 21:05:23,323 - INFO - Num Attention Heads: 12
+2025-01-30 21:05:23,323 - INFO - Num KV Heads: 4
+2025-01-30 21:05:23,323 - INFO - Intermediate Size: 1536
+2025-01-30 21:05:23,324 - INFO - Vocabulary Size: 49152
+
+2025-01-30 21:05:23,324 - INFO - Total parameters: 134,838,696
+2025-01-30 21:05:23,324 - INFO - Trainable parameters: 134,838,696
+2025-01-30 21:06:12,059 - INFO - Using device: cpu
+2025-01-30 21:06:14,815 - INFO - Model Architecture:
+2025-01-30 21:06:14,816 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 21:06:14,816 - INFO - Hidden Size: 552
+2025-01-30 21:06:14,816 - INFO - Num Layers: 24
+2025-01-30 21:06:14,816 - INFO - Num Attention Heads: 12
+2025-01-30 21:06:14,816 - INFO - Num KV Heads: 4
+2025-01-30 21:06:14,816 - INFO - Intermediate Size: 1536
+2025-01-30 21:06:14,816 - INFO - Vocabulary Size: 49152
+
+2025-01-30 21:06:14,817 - INFO - Total parameters: 134,838,696
+2025-01-30 21:06:14,817 - INFO - Trainable parameters: 134,838,696
+2025-01-30 21:09:47,013 - INFO - Using device: cpu
+2025-01-30 21:09:49,791 - INFO - Model Architecture:
+2025-01-30 21:09:49,792 - INFO - Model: LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 552)
+    (layers): ModuleList(
+      (0-23): 24 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=552, out_features=552, bias=False)
+          (k_proj): Linear(in_features=552, out_features=184, bias=False)
+          (v_proj): Linear(in_features=552, out_features=184, bias=False)
+          (o_proj): Linear(in_features=552, out_features=552, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=552, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=552, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=552, out_features=49152, bias=False)
+)
+2025-01-30 21:09:49,792 - INFO - Hidden Size: 552
+2025-01-30 21:09:49,792 - INFO - Num Layers: 24
+2025-01-30 21:09:49,792 - INFO - Num Attention Heads: 12
+2025-01-30 21:09:49,792 - INFO - Num KV Heads: 4
+2025-01-30 21:09:49,792 - INFO - Intermediate Size: 1536
+2025-01-30 21:09:49,792 - INFO - Vocabulary Size: 49152
+
+2025-01-30 21:09:49,793 - INFO - Total parameters: 134,838,696
+2025-01-30 21:09:49,793 - INFO - Trainable parameters: 134,838,696
