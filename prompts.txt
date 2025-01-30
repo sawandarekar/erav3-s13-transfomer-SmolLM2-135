@@ -1,0 +1,24 @@
+Add training for input.txt and run traing for model.py, Before training start read the previously saved model and start training from saved epoch, first run training for 5000 epoch, do the chekpoint and save model after each 100 epoch, after all epoch run completed save the model. for traing the use the parameters from SmolLM2-135.yaml
+
+while running training define which defive to use example cpu, mps and cuda
+
+add tqdm for epoch training and add loss in tqdm
+
+-------------------------------------------------
+
+Update train.py, add training for model which is in model.py, read the input.txt for dataset and for training use the the parameters from SmolLM2-135.yaml
+
+create two different methods to save and to load the model, While traing do the checkpointing and save the model after each 100 epoach, also read the saved model before training. while saving model do the persistent of epoch number and others. if already saved model exist start the training from saved epoch
+
+define optimizer and scheduler, use them for training, use cross_entropy to calculate loss
+
+Use tokenizer, Separate Q,K,V projections for grouped-query attention
+
+define which device to be used for more e.g. cuda, mps, cpu
+
+add proper logging for model parameter, log loss after per epoch with time required for epoch, after checkpoint also add training summary
+
+-------------------------------------------------
+Create model.py from model_summary.txt, while creating model make proper use of embedding, self attention, decoder
+
+
