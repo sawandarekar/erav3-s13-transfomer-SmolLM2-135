@@ -21,4 +21,12 @@ add proper logging for model parameter, log loss after per epoch with time requi
 -------------------------------------------------
 Create model.py from model_summary.txt, while creating model make proper use of embedding, self attention, decoder
 
+-------------------------------------------------
 
+Update readme.md with following details, 
+Overview : Summary about model and project Reverse engineer SmolLM2-135 model 
+Demo link : www.gsfs.sfsdf/link 
+Setup steps 
+Text generation process using huggingface gradio Model Architecture requirements 
+checkpoints : how checkpointing done 
+configuration : What configurations used from SmolLM2-135.yaml and model_summary.txt

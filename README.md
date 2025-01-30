@@ -1,21 +1,88 @@
-# erav3-s13-transfomer-SmolLM2-135
-Reverse engineer SmolLM2-135 model
+# SmolLM2-135 Model
+
+## Overview
+This project involves reverse engineering the SmolLM2-135 model, a transformer-based language model designed for text generation tasks. The model is configured to have 135 million parameters and is optimized for efficient training and inference.
+
+## Demo
+You can try out the model using the following demo link: [Demo Link](www.gsfs.sfsdf/link)
+
+## Setup
+To set up the project, follow these steps:
+1. Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+2. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3. Prepare the dataset by placing your text data in `input.txt`.
+
+
 
 ## Model Architecture
-- Vocabulary Size: 49152
-- Hidden Size: 576
-- Number of Attention Heads: 9
-- Intermediate Size: 1536
-- Number of Hidden Layers: 30
-- Activation Function: SiLU
+The SmolLM2-135 model consists of the following components:
+- Embedding layer with a vocabulary size of 49152 and hidden size of 576.
+- 30 decoder layers, each with:
+  - Self-attention mechanism with 9 attention heads and 3 key-value heads.
+  - MLP with an intermediate size of 1536.
+  - RMS normalization layers.
+- Linear layer for language modeling head.
 
-## File Structure
-. 
-├── input.txt 
-├── model.py 
-├── README.md 
-├── SmolLM2-135.yaml 
-└── train.py
+## Requirements
+The project requires the following dependencies:
+```plaintext
+torch==2.0.1
+torchvision==0.15.2
+numpy==1.24.2
+tqdm==4.64.1
+torchsummary==1.5.1
+transformers==4.21.1
+pyyaml==6.0
+lorem==0.1.1
+```
+
+## Checkpoints
+Checkpoints are saved during training at specified intervals. The checkpointing process involves saving the model state, optimizer state, and scheduler state. Checkpoints are saved in the `checkpoints` directory, and the training can be resumed from the last checkpoint if available.
+
+## Configuration
+The model and training configurations are specified in the `SmolLM2-135.yaml` file. Key configurations include:
+- Model parameters: hidden size, number of layers, number of attention heads, etc.
+- Optimizer settings: learning rate, weight decay, gradient clipping, etc.
+- Training settings: batch size, sequence length, number of training steps, etc.
+
+For a detailed summary of the model architecture, refer to the `model_summary.txt` file.
+
+```plaintext
+LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm((576,), eps=1e-05)
+        (post_attention_layernorm): LlamaRMSNorm((576,), eps=1e-05)
+      )
+    )
+    (norm): LlamaRMSNorm((576,), eps=1e-05)
+    (rotary_emb): LlamaRotaryEmbedding()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+```
 
 ## Training
 To train the model, run the following command:
