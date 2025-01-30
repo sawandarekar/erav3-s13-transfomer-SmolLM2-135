@@ -30,3 +30,25 @@ Setup steps
 Text generation process using huggingface gradio Model Architecture requirements 
 checkpoints : how checkpointing done 
 configuration : What configurations used from SmolLM2-135.yaml and model_summary.txt
+
+-------------------------------------------------
+
+update model.py and generate model.py from model_summary.txt, while updating model.py make sure to use the same parameters as in model_summary.txt
+
+Update train.py, add training for model which is in model.py, read the input.txt for dataset and for training use the the parameters from SmolLM2-135.yaml
+
+create two different methods to save and to load the model, While traing do the checkpointing and save the model after each 100 epoach, also read the saved model before training. while saving model do the persistent of epoch number and others. if already saved model exist start the training from saved epoch
+
+define optimizer and scheduler, use them for training, use cross_entropy to calculate loss
+
+Use tokenizer, Separate Q,K,V projections for grouped-query attention
+
+define which device to be used for more e.g. cuda, mps, cpu
+
+add proper logging for model parameter, log loss after per epoch with time required for epoch, after checkpoint also add training summary
+
+-------------------------------------------------
+
+After each checkpoints and model get saved, run model evaluation from sample text "Hello, how are you?" and print the output. 
+make different function for evaluation and call it after each checkpoint
+

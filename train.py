@@ -5,60 +5,104 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 from model import LlamaForCausalLM
 from tqdm import tqdm
-from torchsummary import summary
 import yaml
 import logging
 import time
 from transformers import AutoTokenizer
-import lorem
-from torch.cuda.amp import GradScaler, autocast
+from pathlib import Path
+from torchinfo import summary
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Disable tokenizers parallelism warning
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('training.log'),
+        logging.StreamHandler()
+    ]
+)
 
 class TextDataset(Dataset):
     def __init__(self, file_path, tokenizer, seq_length):
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             text = f.read()
-        self.tokens = tokenizer.encode(text)
-        self.seq_length = seq_length
-        self.max_length = tokenizer.model_max_length
-        # if len(self.tokens) > self.max_length:
-        #     raise ValueError(f"Token indices sequence length is longer than the specified maximum sequence length for this model ({len(self.tokens)} > {self.max_length}).")
+        
+        # Tokenize the text
+        tokens = tokenizer.encode(text)
+        
+        # Set maximum sequence length
+        self.max_length = min(8192, seq_length)  # Cap at 8192 tokens
+        self.seq_length = self.max_length
+        
+        # Create chunks of max_length
+        self.chunks = []
+        for i in range(0, len(tokens) - self.max_length + 1, self.max_length):
+            chunk = tokens[i:i + self.max_length]
+            if len(chunk) == self.max_length:  # Only keep complete chunks
+                self.chunks.append(chunk)
+        
+        self.tokenizer = tokenizer
 
     def __len__(self):
-        return len(self.tokens) // self.seq_length
+        return len(self.chunks)
 
     def __getitem__(self, idx):
-        start_idx = idx * self.seq_length
-        end_idx = start_idx + self.seq_length
-        return torch.tensor(self.tokens[start_idx:end_idx], dtype=torch.long)
+        chunk = self.chunks[idx]
+        
+        # Create input and target sequences
+        input_ids = torch.tensor(chunk[:-1], dtype=torch.long)
+        labels = torch.tensor(chunk[1:], dtype=torch.long)
+        
+        # Ensure sequences are of correct length
+        if input_ids.size(0) < self.seq_length - 1:
+            padding = torch.full((self.seq_length - 1 - input_ids.size(0),), 
+                               self.tokenizer.pad_token_id, 
+                               dtype=torch.long)
+            input_ids = torch.cat([input_ids, padding])
+            labels = torch.cat([labels, padding])
+            
+        return input_ids, labels
 
-def save_checkpoint(model, optimizer, scheduler, epoch, config):
-    checkpoint_path = f"{config['checkpoints']['checkpoints_path']}/checkpoint_{epoch+1}.pt"
-    torch.save({
+def save_checkpoint(model, optimizer, scheduler, epoch, loss, config, checkpoint_dir):
+    """Save model checkpoint with all training state"""
+    checkpoint_path = os.path.join(checkpoint_dir, f"checkpoint_epoch_{epoch}.pt")
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    
+    checkpoint = {
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
-        'scheduler_state_dict': scheduler.state_dict(),
-    }, checkpoint_path)
-    logging.info(f"Checkpoint saved at epoch {epoch+1}")
+        'scheduler_state_dict': scheduler.state_dict() if scheduler else None,
+        'loss': loss,
+        'config': config
+    }
+    
+    torch.save(checkpoint, checkpoint_path)
+    logging.info(f"Checkpoint saved: {checkpoint_path}")
+    
+    # Save as latest checkpoint
+    latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
+    torch.save(checkpoint, latest_path)
 
-def load_checkpoint(model, optimizer, scheduler, config):
-    checkpoint_path = config['checkpoints']['resume_checkpoint_path']
-    if checkpoint_path and os.path.exists(checkpoint_path):
-        checkpoint = torch.load(checkpoint_path)
+def load_checkpoint(model, optimizer, scheduler, checkpoint_dir):
+    """Load latest checkpoint if it exists"""
+    latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
+    
+    if os.path.exists(latest_path):
+        logging.info(f"Loading checkpoint: {latest_path}")
+        checkpoint = torch.load(latest_path)
+        
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-        logging.info(f"Resumed training from checkpoint at epoch {checkpoint['epoch'] + 1}")
-        return checkpoint['epoch'] + 1
-    return 0
+        if scheduler and checkpoint['scheduler_state_dict']:
+            scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+        
+        return checkpoint['epoch'], checkpoint['loss'], checkpoint['config']
+    
+    return 0, float('inf'), None
 
 def get_device():
+    """Determine the best available device"""
     if torch.cuda.is_available():
         return "cuda"
     elif torch.backends.mps.is_available():
@@ -66,114 +110,215 @@ def get_device():
     else:
         return "cpu"
 
-def generate_sample_text(model, tokenizer, prompt_text, max_length=50):
+def evaluate_model(model, tokenizer, prompt="Hello, how are you?", max_length=50, device="cpu"):
+    """Evaluate model by generating text from a prompt"""
     model.eval()
-    input_ids = tokenizer.encode(prompt_text, return_tensors='pt').to(model.device)
     with torch.no_grad():
-        output_ids = model.generate(input_ids, max_length=max_length)
-    generated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-    return generated_text
+        # Tokenize input prompt
+        input_ids = tokenizer.encode(prompt, return_tensors='pt').to(device)
+        
+        # Generate response
+        outputs = model.generate(input_ids, max_length=max_length)
+        
+        # Decode generated text
+        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+        logging.info("\nModel Evaluation:")
+        logging.info(f"Prompt: {prompt}")
+        logging.info(f"Generated: {generated_text}\n")
+        
+        return generated_text
+
+def print_model_summary(model, config):
+    """Print detailed model summary"""
+    # Calculate input shape based on config
+    batch_size = config['tokens']['micro_batch_size']
+    seq_length = config['tokens']['sequence_length']
+    
+    # Generate model summary
+    # model_summary = summary(
+    #     model,
+    #     input_size=(batch_size, seq_length),
+    #     col_names=["input_size", "output_size", "num_params", "kernel_size", "mult_adds"],
+    #     depth=4,
+    #     device="cpu"
+    # )
+    
+    logging.info(f"Model Architecture:")
+    logging.info(f"Model: {model}")
+    logging.info(f"Hidden Size: {config['model']['model_config']['hidden_size']}")
+    logging.info(f"Num Layers: {config['model']['model_config']['num_hidden_layers']}")
+    logging.info(f"Num Attention Heads: {config['model']['model_config']['num_attention_heads']}")
+    logging.info(f"Num KV Heads: {config['model']['model_config'].get('num_key_value_heads', config['model']['model_config']['num_attention_heads'])}")
+    logging.info(f"Intermediate Size: {config['model']['model_config']['intermediate_size']}")
+    logging.info(f"Vocabulary Size: {config['model']['model_config']['vocab_size']}\n")
+
+def load_config():
+    with open('SmolLM2-135.yaml', 'r') as f:
+        config = yaml.safe_load(f)
+        
+    # Override model config to match exactly 135M parameters
+    model_config = config['model']['model_config']
+    model_config.update({
+        'hidden_size': 552,           # Must be divisible by num_attention_heads
+        'intermediate_size': 1536,    # Keep MLP intermediate size
+        'num_attention_heads': 12,    # Changed to ensure proper division
+        'num_key_value_heads': 4,     # 1/3 of attention heads
+        'num_hidden_layers': 24,      # Keep number of layers
+        'vocab_size': 49152,         # Keep vocab size
+        'max_position_embeddings': 512,
+        'rms_norm_eps': 1e-5,
+        'hidden_act': 'silu'
+    })
+    
+    return config
 
 def train():
-    # Load configuration from YAML
-    with open('SmolLM2-135.yaml', 'r') as file:
-        config = yaml.safe_load(file)
 
+    config = load_config()
+    
+    
     # Set device
     device = get_device()
     device = "cpu"
     logging.info(f"Using device: {device}")
-
-    # Load tokenizer before any multiprocessing
+    
+    # Initialize tokenizer
     tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM2-135M")
-
-    # Adjust model configuration to ensure 135 million parameters
-    config['model']['hidden_size'] = 768  # Example adjustment
-    config['model']['num_layers'] = 12    # Example adjustment
-    config['model']['num_heads'] = 12     # Example adjustment
-    if 'intermediate_size' not in config['model']:
-        config['model']['intermediate_size'] = 1536  # Example adjustment
-
+    
+    # Create dataset and dataloader
+    dataset = TextDataset('input.txt', tokenizer,  512)
+                        #   config['tokens']['sequence_length'])
+    dataloader = DataLoader(
+        dataset,
+        batch_size=config['tokens']['micro_batch_size'],
+        shuffle=True,
+        num_workers=0,
+        pin_memory=(device == "cuda")
+    )
+    
     # Initialize model
-    model = LlamaForCausalLM(config['model']).to(device)
-    scaler = GradScaler()  # Initialize GradScaler for mixed precision training
-    num_parameters = sum(p.numel() for p in model.parameters())
-    logging.info(f"Model initialized with {num_parameters} parameters")
-
-    # Adjust batch size and sequence length for MPS
-    if device == "mps":
-        config['tokens']['micro_batch_size'] = min(config['tokens']['micro_batch_size'], 4)
-        config['tokens']['sequence_length'] = min(config['tokens']['sequence_length'], 128)
-
-    # Ensure sequence length does not exceed model's maximum sequence length
-    config['tokens']['sequence_length'] = min(config['tokens']['sequence_length'], tokenizer.model_max_length)
-
-    # Load dataset
-    dataset = TextDataset('input.txt', tokenizer, config['tokens']['sequence_length'])
-    dataloader = DataLoader(dataset, batch_size=config['tokens']['micro_batch_size'], shuffle=True, num_workers=0)
-
-    # Define optimizer and scheduler
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config['optimizer']['learning_rate_scheduler']['learning_rate'])
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=config['optimizer']['learning_rate_scheduler']['lr_decay_steps'], gamma=0.1)
-
-    max_epoch = 5000
-    # Load checkpoint if available
-    start_epoch = load_checkpoint(model, optimizer, scheduler, config)
-    if(start_epoch != 0): max_epoch = start_epoch + 50
-
+    model = LlamaForCausalLM(config).to(device)
+    
+    # Print model summary
+    print_model_summary(model, config)
+    
+    # Log model parameters
+    total_params = sum(p.numel() for p in model.parameters())
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    logging.info(f"Total parameters: {total_params:,}")
+    logging.info(f"Trainable parameters: {trainable_params:,}")
+    
+    # Initialize optimizer and scheduler
+    optimizer = optim.AdamW(
+        model.parameters(),
+        lr=config['optimizer']['learning_rate_scheduler']['learning_rate'],
+        weight_decay=config['optimizer']['weight_decay']
+    )
+    
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(
+        optimizer,
+        T_max=config['tokens']['train_steps'],
+        eta_min=config['optimizer']['learning_rate_scheduler'].get('min_decay_lr', 0)
+    )
+    
+    # Load checkpoint if exists
+    checkpoint_dir = Path(config['checkpoints']['checkpoints_path'])
+    start_epoch, best_loss, loaded_config = load_checkpoint(model, optimizer, scheduler, checkpoint_dir)
+    
     # Training loop
-    accumulation_steps = config['training'].get('accumulation_steps', 1)
-    for epoch in range(start_epoch, max_epoch):
+    num_epochs = 5000
+    if(start_epoch != 0): num_epochs = start_epoch + 50
+    
+    checkpoint_interval = 100  # Save every 100 epochs
+    
+    # Main progress bar for epochs
+    epoch_pbar = tqdm(range(start_epoch, num_epochs), 
+                     desc="Training Progress",
+                     bar_format='{desc}: {percentage:3.0f}%|{bar}| [{n_fmt}/{total_fmt}] {postfix}',
+                     position=0)
+    
+    for epoch in epoch_pbar:
         model.train()
         epoch_loss = 0
-        start_time = time.time()
-        progress_bar = tqdm(dataloader, desc=f"Epoch {epoch+1}")
-        for i, batch in enumerate(progress_bar):
-            batch = batch.to(device)
-            optimizer.zero_grad()
-            if device in ["cuda", "mps"]:
-                with autocast(device_type=device):  # Use autocast for mixed precision training
-                    outputs = model(batch)
-                    labels = batch[:, 1:].contiguous().view(-1)
-                    logits = outputs[:, :-1].contiguous().view(-1, outputs.size(-1))
-                    loss = torch.nn.functional.cross_entropy(logits, labels)
-                    loss = loss / accumulation_steps  # Normalize loss by accumulation steps
-                scaler.scale(loss).backward()  # Scale loss for mixed precision
-
-                if (i + 1) % accumulation_steps == 0:
-                    scaler.step(optimizer)  # Unscale gradients and step optimizer
-                    scaler.update()  # Update the scale for next iteration
-                    optimizer.zero_grad()
-            else:
-                outputs = model(batch)
-                labels = batch[:, 1:].contiguous().view(-1)
-                logits = outputs[:, :-1].contiguous().view(-1, outputs.size(-1))
-                loss = torch.nn.functional.cross_entropy(logits, labels)
-                loss = loss / accumulation_steps  # Normalize loss by accumulation steps
-                loss.backward()
-
-                if (i + 1) % accumulation_steps == 0:
-                    optimizer.step()
-                    optimizer.zero_grad()
-
-            epoch_loss += loss.item() * accumulation_steps  # Accumulate loss
-            progress_bar.set_postfix(loss=loss.item() * accumulation_steps)
-
-        scheduler.step()
-        logging.info(f"Epoch {epoch+1} completed in {time.time() - start_time:.2f}s with loss {epoch_loss / len(dataloader):.4f}")
-
-        if (epoch + 1) % config['checkpoints']['checkpoint_interval'] == 0:
-            save_checkpoint(model, optimizer, scheduler, epoch, config)
+        epoch_start_time = time.time()
+        
+        # Inner progress bar for batches
+        batch_pbar = tqdm(enumerate(dataloader), 
+                         total=len(dataloader),
+                         desc=f"Batch Progress",
+                         leave=False,
+                         position=1)
+        
+        for batch_idx, (input_ids, labels) in batch_pbar:
+            input_ids = input_ids.to(device)
+            labels = labels.to(device)
             
-            # Generate and print sample text
-            text = lorem.sentence()
-            sample_text = generate_sample_text(model, tokenizer, text)
-            logging.info(f"Sample text: {text}")
-            logging.info(f"Sample generated text: {sample_text}")
-
-        if epoch_loss / len(dataloader) <= config['training']['target_loss']:
-            logging.info("Target loss achieved. Stopping training.")
+            optimizer.zero_grad()
+            
+            outputs = model(input_ids)
+            loss = nn.CrossEntropyLoss()(outputs.view(-1, outputs.size(-1)), labels.view(-1))
+            
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), config['optimizer']['clip_grad'])
+            
+            optimizer.step()
+            scheduler.step()
+            
+            epoch_loss += loss.item()
+            
+            # Update batch progress bar
+            batch_pbar.set_postfix({
+                'batch_loss': f"{loss.item():.4f}"
+            })
+        
+        # Close batch progress bar
+        batch_pbar.close()
+        
+        # Calculate average epoch loss
+        avg_epoch_loss = epoch_loss / len(dataloader)
+        epoch_time = time.time() - epoch_start_time
+        
+        # Update epoch progress bar
+        epoch_pbar.set_description(f"Epoch [{epoch+1}/{num_epochs}]")
+        epoch_pbar.set_postfix({
+            'loss': f"{avg_epoch_loss:.4f}",
+            'time': f"{epoch_time:.2f}s",
+            'lr': f"{scheduler.get_last_lr()[0]:.2e}"
+        })
+        
+        # Save checkpoint every checkpoint_interval epochs
+        if (epoch + 1) % checkpoint_interval == 0:
+            save_checkpoint(
+                model, optimizer, scheduler,
+                epoch + 1, avg_epoch_loss,
+                config, checkpoint_dir
+            )
+            
+            # Log training summary
+            logging.info(f"\nCheckpoint Summary (Epoch {epoch+1}):")
+            logging.info(f"Average Loss: {avg_epoch_loss:.4f}")
+            logging.info(f"Learning Rate: {scheduler.get_last_lr()[0]:.2e}")
+            logging.info(f"Training Time: {epoch_time:.2f}s")
+            logging.info(f"Device: {device}")
+            logging.info(f"Memory Used: {torch.cuda.max_memory_allocated()/1e9:.2f}GB" if device == "cuda" else "Memory Used: N/A")
+            
+            # Run model evaluation
+            evaluate_model(model, tokenizer, device=device)
+        
+        # Early stopping check
+        if avg_epoch_loss < config['training']['target_loss']:
+            logging.info(f"Target loss achieved at epoch {epoch+1}. Stopping training.")
             break
+    
+    # Save final model and evaluate
+    save_checkpoint(
+        model, optimizer, scheduler,
+        epoch + 1, avg_epoch_loss,
+        config, checkpoint_dir
+    )
+    evaluate_model(model, tokenizer, device=device)
+    logging.info("Training completed!")
 
 if __name__ == "__main__":
     train()
