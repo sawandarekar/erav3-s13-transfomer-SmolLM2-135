@@ -75,10 +75,10 @@ def save_checkpoint(model, optimizer, scheduler, epoch, loss, config, checkpoint
         'scheduler_state_dict': scheduler.state_dict() if scheduler else None,
         'loss': loss,
         'config': config
-    }
+    } 
     
-    torch.save(checkpoint, checkpoint_path)
-    logging.info(f"Checkpoint saved: {checkpoint_path}")
+    # torch.save(checkpoint, checkpoint_path)
+    # logging.info(f"Checkpoint saved: {checkpoint_path}")
     
     # Save as latest checkpoint
     latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
@@ -300,8 +300,6 @@ def train():
             logging.info(f"Average Loss: {avg_epoch_loss:.4f}")
             logging.info(f"Learning Rate: {scheduler.get_last_lr()[0]:.2e}")
             logging.info(f"Training Time: {epoch_time:.2f}s")
-            logging.info(f"Device: {device}")
-            logging.info(f"Memory Used: {torch.cuda.max_memory_allocated()/1e9:.2f}GB" if device == "cuda" else "Memory Used: N/A")
             
             # Run model evaluation
             evaluate_model(model, tokenizer, device=device)
