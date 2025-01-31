@@ -76,8 +76,8 @@ def save_checkpoint(model, optimizer, scheduler, epoch, loss, config, checkpoint
         'config': config
     } 
     
-    torch.save(checkpoint, checkpoint_path)
-    logging.info(f"Checkpoint saved: {checkpoint_path}")
+    # torch.save(checkpoint, checkpoint_path)
+    # logging.info(f"Checkpoint saved: {checkpoint_path}")
     
     # Save as latest checkpoint
     latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
