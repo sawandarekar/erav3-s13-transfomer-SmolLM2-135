@@ -179,7 +179,7 @@ def train():
     
     # Set device
     device = get_device()
-    device = "cpu"
+    #device = "cpu"
     logging.info(f"Using device: {device}")
     
     # Initialize tokenizer
