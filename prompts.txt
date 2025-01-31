@@ -52,3 +52,9 @@ add proper logging for model parameter, log loss after per epoch with time requi
 After each checkpoints and model get saved, run model evaluation from sample text "Hello, how are you?" and print the output. 
 make different function for evaluation and call it after each checkpoint
 
+
+-------------------------------------------------
+
+I want to deplpoy my application on gradio, so need to create gradio interface for my application, and deploy it on gradio
+it shoud use the trained model which is stored in the checkpoint and tokenizer, and should generate text from the model
+create app.py file and add all the code in this file

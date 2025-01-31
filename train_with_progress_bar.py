@@ -233,15 +233,25 @@ def train():
     
     checkpoint_interval = 100  # Save every 100 epochs
     
-    logging.info(f"\nStarting training from epoch {start_epoch + 1} to {num_epochs}")
+    # Main progress bar for epochs
+    epoch_pbar = tqdm(range(start_epoch, num_epochs), 
+                     desc="Training Progress",
+                     bar_format='{desc}: {percentage:3.0f}%|{bar}| [{n_fmt}/{total_fmt}] {postfix}',
+                     position=0)
     
-    for epoch in range(start_epoch, num_epochs):
+    for epoch in epoch_pbar:
         model.train()
         epoch_loss = 0
         epoch_start_time = time.time()
         
-        # Regular loop for batches
-        for batch_idx, (input_ids, labels) in enumerate(dataloader):
+        # Inner progress bar for batches
+        batch_pbar = tqdm(enumerate(dataloader), 
+                         total=len(dataloader),
+                         desc=f"Batch Progress",
+                         leave=False,
+                         position=1)
+        
+        for batch_idx, (input_ids, labels) in batch_pbar:
             input_ids = input_ids.to(device)
             labels = labels.to(device)
             
@@ -257,18 +267,26 @@ def train():
             scheduler.step()
             
             epoch_loss += loss.item()
+            
+            # Update batch progress bar
+            batch_pbar.set_postfix({
+                'batch_loss': f"{loss.item():.4f}"
+            })
+        
+        # Close batch progress bar
+        batch_pbar.close()
         
         # Calculate average epoch loss
         avg_epoch_loss = epoch_loss / len(dataloader)
         epoch_time = time.time() - epoch_start_time
         
-        # Log epoch progress
-        logging.info(
-            f"Epoch [{epoch+1}/{num_epochs}] - "
-            f"Loss: {avg_epoch_loss:.4f} - "
-            f"Time: {epoch_time:.2f}s - "
-            f"LR: {scheduler.get_last_lr()[0]:.2e}"
-        )
+        # Update epoch progress bar
+        epoch_pbar.set_description(f"Epoch [{epoch+1}/{num_epochs}]")
+        epoch_pbar.set_postfix({
+            'loss': f"{avg_epoch_loss:.4f}",
+            'time': f"{epoch_time:.2f}s",
+            'lr': f"{scheduler.get_last_lr()[0]:.2e}"
+        })
         
         # Save checkpoint every checkpoint_interval epochs
         if (epoch + 1) % checkpoint_interval == 0:

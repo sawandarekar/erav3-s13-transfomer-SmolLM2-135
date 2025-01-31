@@ -7,3 +7,4 @@ transformers==4.21.1
 pyyaml==6.0
 lorem==0.1.1
 torchinfo==1.8.0
+gradio==4.12.0
