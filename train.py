@@ -10,7 +10,6 @@ import logging
 import time
 from transformers import AutoTokenizer
 from pathlib import Path
-from torchinfo import summary
 
 # Configure logging
 logging.basicConfig(
@@ -77,8 +76,8 @@ def save_checkpoint(model, optimizer, scheduler, epoch, loss, config, checkpoint
         'config': config
     } 
     
-    # torch.save(checkpoint, checkpoint_path)
-    # logging.info(f"Checkpoint saved: {checkpoint_path}")
+    torch.save(checkpoint, checkpoint_path)
+    logging.info(f"Checkpoint saved: {checkpoint_path}")
     
     # Save as latest checkpoint
     latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
@@ -180,7 +179,7 @@ def train():
     
     # Set device
     device = get_device()
-    #device = "cpu"
+    device = "cpu"
     logging.info(f"Using device: {device}")
     
     # Initialize tokenizer
