@@ -366,3 +366,121 @@ Total trainable parameters: 134,515,008 (134.52M)
 2025-01-30 08:37:36,077 - INFO - Found checkpoint at 5000 steps. Loading and training for 50 more steps.
 2025-01-30 08:44:46,443 - INFO - Checkpoint saved at step 5050
 2025-01-30 08:44:46,444 - INFO - Training completed!
+2025-01-31 21:06:34,970 - INFO - Using device: cpu
+2025-01-31 21:06:37,279 - INFO - 
+Model Architecture:
+2025-01-31 21:06:37,279 - INFO - ==================================================
+2025-01-31 21:06:37,279 - INFO - LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-31 21:06:37,280 - INFO - ==================================================
+2025-01-31 21:06:37,280 - INFO - 
+Total trainable parameters: 134,515,008 (134.52M)
+2025-01-31 21:06:37,280 - INFO - ==================================================
+
+2025-01-31 21:06:37,767 - INFO - Set pad_token to eos_token
+2025-01-31 21:06:37,794 - INFO - Loaded 7222 text segments from input.txt
+2025-01-31 21:06:37,794 - INFO - Found checkpoint at 5000 steps. Loading and training for 50 more steps.
+2025-01-31 21:08:15,082 - INFO - Checkpoint saved at step 5060
+2025-01-31 21:08:15,082 - INFO - Training completed!
+2025-01-31 21:11:12,931 - INFO - Using device: cpu
+2025-01-31 21:11:15,275 - INFO - 
+Model Architecture:
+2025-01-31 21:11:15,275 - INFO - ==================================================
+2025-01-31 21:11:15,275 - INFO - LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-31 21:11:15,276 - INFO - ==================================================
+2025-01-31 21:11:15,277 - INFO - 
+Total trainable parameters: 134,515,008 (134.52M)
+2025-01-31 21:11:15,277 - INFO - ==================================================
+
+2025-01-31 21:11:15,688 - INFO - Set pad_token to eos_token
+2025-01-31 21:11:15,713 - INFO - Loaded 7222 text segments from input.txt
+2025-01-31 21:11:15,713 - INFO - Found checkpoint at 5000 steps. Loading and training for 50 more steps.
+2025-01-31 21:11:59,920 - INFO - Using device: cpu
+2025-01-31 21:12:02,213 - INFO - 
+Model Architecture:
+2025-01-31 21:12:02,213 - INFO - ==================================================
+2025-01-31 21:12:02,213 - INFO - LlamaForCausalLM(
+  (model): LlamaModel(
+    (embed_tokens): Embedding(49152, 576)
+    (layers): ModuleList(
+      (0-29): 30 x LlamaDecoderLayer(
+        (self_attn): LlamaSdpaAttention(
+          (q_proj): Linear(in_features=576, out_features=576, bias=False)
+          (k_proj): Linear(in_features=576, out_features=192, bias=False)
+          (v_proj): Linear(in_features=576, out_features=192, bias=False)
+          (o_proj): Linear(in_features=576, out_features=576, bias=False)
+          (rotary_emb): LlamaRotaryEmbedding()
+        )
+        (mlp): LlamaMLP(
+          (gate_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (up_proj): Linear(in_features=576, out_features=1536, bias=False)
+          (down_proj): Linear(in_features=1536, out_features=576, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): LlamaRMSNorm()
+        (post_attention_layernorm): LlamaRMSNorm()
+      )
+    )
+    (norm): LlamaRMSNorm()
+  )
+  (lm_head): Linear(in_features=576, out_features=49152, bias=False)
+)
+2025-01-31 21:12:02,214 - INFO - ==================================================
+2025-01-31 21:12:02,215 - INFO - 
+Total trainable parameters: 134,515,008 (134.52M)
+2025-01-31 21:12:02,215 - INFO - ==================================================
+
+2025-01-31 21:12:02,585 - INFO - Set pad_token to eos_token
+2025-01-31 21:12:02,607 - INFO - Loaded 7222 text segments from input.txt
+2025-01-31 21:12:02,608 - INFO - Found checkpoint at 5000 steps. Loading and training for 50 more steps.
+2025-01-31 21:13:30,735 - INFO - Checkpoint saved at step 5070
+2025-01-31 21:13:30,736 - INFO - Training completed!
