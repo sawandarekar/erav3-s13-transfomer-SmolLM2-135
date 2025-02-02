@@ -79,13 +79,20 @@ def save_checkpoint(model, optimizer, scheduler, epoch, loss, config, checkpoint
     # torch.save(checkpoint, checkpoint_path)
     # logging.info(f"Checkpoint saved: {checkpoint_path}")
     
+
+    checkpoint = {
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'loss': loss,
+        'config': config
+    } 
     # Save as latest checkpoint
-    latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
+    latest_path = os.path.join(checkpoint_dir, "final_checkpoint.pt")
     torch.save(checkpoint, latest_path)
 
 def load_checkpoint(model, optimizer, scheduler, checkpoint_dir):
     """Load latest checkpoint if it exists"""
-    latest_path = os.path.join(checkpoint_dir, "latest_checkpoint.pt")
+    latest_path = os.path.join(checkpoint_dir, "checkpoint_epoch_5050.pt")
     
     if os.path.exists(latest_path):
         logging.info(f"Loading checkpoint: {latest_path}")
